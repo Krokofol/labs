@@ -11,7 +11,7 @@
     ; 2. adds all other words into array
     ; 3. adds the word build by using first symbol into array
     (let [firstSymbol (first unusedSymbols)]
-      (conj (generateWords word (remove #{firstSymbol} unusedSymbols)) (conj word firstSymbol))
+      (concat [(conj word firstSymbol)] (generateWords word (remove #{firstSymbol} unusedSymbols)))
       )
     ;else
     ; 1. creates the array using the last symbol
