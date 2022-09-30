@@ -1,5 +1,5 @@
 (ns lab1)
-(def startLength 1)
+(def startLength 2)
 (def alphabet ['a 'b 'c])
 
 ; creates all able words from start word and unused symbols
@@ -34,7 +34,7 @@
     ; 3. generate all words for other words
     ; 4. connects all words
     (let [firstWord (first words), newWords (generateAbleWords firstWord symbols), otherWords (remove #{firstWord} words)]
-      (conj newWords (generateAllWords otherWords symbols))
+      (concat newWords (generateAllWords otherWords symbols))
       )
     ;else
     (generateAbleWords (first words) symbols)
@@ -42,11 +42,11 @@
   )
 
 (defn allWordsBuilder [words, symbols, length]
-  (if (< (count(first words)) length)
+  (if (> length 1)
     ;then
     ; 1. generates all words for this level
     ; 2. go to next level
-    (allWordsBuilder (generateAllWords words symbols) symbols length)
+    (allWordsBuilder (generateAllWords words symbols) symbols (- length 1))
     ;else
     ; 1. generates all words for this level
     (generateAllWords words symbols)
