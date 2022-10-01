@@ -11,17 +11,17 @@
     ; 2. adds all other words into array
     ; 3. adds the word build by using first symbol into array
     (let [firstSymbol (first unusedSymbols)]
-      (concat [(conj word firstSymbol)] (generateWords word (remove #{firstSymbol} unusedSymbols)))
+      (concat [(str word firstSymbol)] (generateWords word (remove #{firstSymbol} unusedSymbols)))
       )
     ;else
-    ; 1. creates the array using the last symbol
-    [(conj word (first unusedSymbols))]
+    ; 1. creates the string using the last symbol
+    (concat [(str word (first unusedSymbols))] [])
     )
   )
 
 ; removes unable symbols from unused symbols
 (defn generateAbleWords [word, unusedSymbols]
-  (let [ableSymbols (remove #{(first word)} unusedSymbols)]
+  (let [ableSymbols (remove #{(str (last word))} unusedSymbols)]
     (generateWords word ableSymbols)
     )
   )
