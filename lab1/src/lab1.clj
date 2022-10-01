@@ -1,6 +1,6 @@
 (ns lab1)
-(def startLength 2)
-(def alphabet ['a 'b 'c])
+(def startLength 4)
+(def alphabet ["a" "b" "c"])
 
 ; creates all able words from start word and unused symbols
 (defn generateWords [word, unusedSymbols]
@@ -21,7 +21,7 @@
 
 ; removes unable symbols from unused symbols
 (defn generateAbleWords [word, unusedSymbols]
-  (let [ableSymbols (remove #{(last word)} unusedSymbols)]
+  (let [ableSymbols (remove #{(first word)} unusedSymbols)]
     (generateWords word ableSymbols)
     )
   )
@@ -58,7 +58,7 @@
 
 ; generates all able words for entered length and symbols
 (defn start [symbols, length]
-  (allWordsBuilder [[]] symbols length)
+  (allWordsBuilder [] symbols length)
   )
 
 ; main function
