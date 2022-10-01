@@ -26,6 +26,7 @@
     )
   )
 
+; generates all able words from entered words and symbols
 (defn generateAllWords [words, symbols]
   (if (> (count words) 1)
     ;then
@@ -37,10 +38,12 @@
       (concat newWords (generateAllWords otherWords symbols))
       )
     ;else
+    ; 1. generate all able words from the last word
     (generateAbleWords (first words) symbols)
     )
   )
 
+; generates all able words for entered length and symbols level by level
 (defn allWordsBuilder [words, symbols, length]
   (if (> length 1)
     ;then
@@ -53,8 +56,10 @@
     )
   )
 
+; generates all able words for entered length and symbols
 (defn start [symbols, length]
   (allWordsBuilder [[]] symbols length)
   )
 
+; main function
 (println (start alphabet startLength))
