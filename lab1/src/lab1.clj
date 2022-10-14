@@ -1,45 +1,44 @@
 (ns lab1)
-(def startLength 4)
+(def startLength 3)
 (def alphabet ["a" "b" "c"])
 
 ; creates all able words from start word and unused symbols
-(defn generateWords [word, unusedSymbols]
-  (remove #{(last word)} unusedSymbols)
-  (if (> (count unusedSymbols) 1)
+(defn generateWords [word, unusedSymbols, index, accumulator]
+  (if (> (count unusedSymbols) index)
     ;then
     ; 1. takes the first symbol from unused symbols
     ; 2. adds all other words into array
     ; 3. adds the word build by using first symbol into array
-    (let [firstSymbol (first unusedSymbols)]
-      (concat [(str word firstSymbol)] (generateWords word (remove #{firstSymbol} unusedSymbols)))
+    (
+      (def newAccumulator
+        (let [newSymbol (get unusedSymbols index)]
+          (if (= (str (last word)) newSymbol )
+            ;then
+            accumulator
+            ;else
+            (concat [(str word newSymbol)] accumulator)
+            )
+          )
+        )
+      (recur word unusedSymbols (+ index 1) newAccumulator)
       )
-    ;else
-    ; 1. creates the string using the last symbol
-    (concat [(str word (first unusedSymbols))] [])
-    )
-  )
-
-; removes unable symbols from unused symbols
-(defn generateAbleWords [word, unusedSymbols]
-  (let [ableSymbols (remove #{(str (last word))} unusedSymbols)]
-    (generateWords word ableSymbols)
     )
   )
 
 ; generates all able words from entered words and symbols
-(defn generateAllWords [words, symbols]
+(defn generateAllWords [words, symbols, index, accumulator]
   (if (> (count words) 1)
     ;then
     ; 1. takes first word
     ; 2. generate all able words for this
     ; 3. generate all words for other words
     ; 4. connects all words
-    (let [firstWord (first words), newWords (generateAbleWords firstWord symbols), otherWords (remove #{firstWord} words)]
-      (concat newWords (generateAllWords otherWords symbols))
+    (let [firstWord (first words), newWords (generateWords firstWord symbols 0 []), otherWords (remove #{firstWord} words)]
+      (concat newWords (recur otherWords symbols (+ index 1) newAccumulator))
       )
     ;else
     ; 1. generate all able words from the last word
-    (generateAbleWords (first words) symbols)
+    (generateWords (first words) symbols 0 [])
     )
   )
 
