@@ -22,6 +22,7 @@
         )
       (recur word unusedSymbols (+ index 1) newAccumulator)
       )
+    ()
     )
   )
 
